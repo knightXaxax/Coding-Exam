@@ -1,0 +1,13 @@
+*, body{
+    margin: 0px;
+    padding: 0px;
+}
+
+div.ui-sortable-handle {
+    width: 200px !important;
+    height: 110px !important;
+}
+
+img.car-images {
+    width: 190px !important;
+}

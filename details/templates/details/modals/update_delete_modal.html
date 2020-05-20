@@ -1,0 +1,46 @@
+<form action="{% url 'details:car_info' %}" method="POST" class="modal fade" id="update_delete_modal" tabindex="-1" role="dialog" aria-labelledby="update_delete_modal_title" aria-hidden="true">
+    {% csrf_token %}
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+  
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title" id="update_delete_modal_title">Update Car Information</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="text-white">&times;</span>
+          </button>
+        </div>
+  
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8">
+                <img id="img-focus" src="" alt="">
+              </div>
+              <div class="col-lg-4 py-4">
+                <div class="row">
+                  <h5>Name: <span id="car-name" class="col-lg-12"></span></h5>
+                  <h5>Color: <span id="car-name" class="col-lg-12"></span></h5>
+                  <select name="car_color" id="car-color" class="col-lg-12 form-control form-control-md">
+                    <option disabled>--Select a color-- </option>
+                    {% for color in colors %}
+                      <option value="{{ color }}" class="{{ color }}">{{ color|title }}</option>
+                    {% endfor %}
+                  </select>
+                  <input type="number" name="car_id" id="hidden_box" hidden>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="modal-footer border-none">
+  
+          <button type="submit" name="submit" value="update" class="btn btn-success">Update</button>
+          <button type="submit" name="submit" value="delete" class="btn btn-danger">Delete</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+  
+    </div>
+  
+  </form>
