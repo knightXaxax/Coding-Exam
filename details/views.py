@@ -5,6 +5,7 @@ from operator import itemgetter
 from .forms import EditForm
 from django.urls import reverse
 import threading
+from executive_cars.models import ExecutiveCarsInformation
 
 
 alpha_origin = [
@@ -17,14 +18,23 @@ alpha = []
 def homepage(request):
     filtered = False
     cars = sorting_cars(CarsInformation.objects.all())
-    car_names = sorted([car['name'] for car in cars])
+    executive_cars = sorting_cars(ExecutiveCarsInformation.objects.using('executive_cars').all())
+    car_to_be_sorted = []
+    for car in cars:
+        car_to_be_sorted.append(car)
+
+    for executive_car in executive_cars:
+        car_to_be_sorted.append(executive_car)
+
+    car_names = sorted([car['name'] for car in car_to_be_sorted])
 
     if request.method == "GET":
+        print(car_names)
         return render(request, 'details/mainpages/homepage.html', {
             'title' : 'homepage',
             'cars' :  cars,
             'colors' : ['red', 'blue'],
-            'data' : 'asd',
+            'executive_cars' : executive_cars,
         })
     
     elif request.method == "POST":
@@ -32,14 +42,17 @@ def homepage(request):
         
         if request.POST['submit'] == 'blue-filter':
             cars = list(filter(lambda x: x['color'] == "blue", cars))
+            executive_cars = list(filter(lambda x: x['color'] == "blue", executive_cars))
             filtered = True
 
         elif request.POST['submit'] == 'all-filter':
             cars = cars
+            executive_cars = executive_cars
             filtered = True
 
         elif request.POST['submit'] == 'red-filter':
             cars = list(filter(lambda x: x['color'] == "red", cars))
+            executive_cars = list(filter(lambda x: x['color'] == "red", executive_cars))
             filtered = True
 
         elif request.POST['submit'] == "add-blue-car":
@@ -56,19 +69,37 @@ def homepage(request):
             'title' : 'homepage',
             'cars' : sorting_cars(CarsInformation.objects.all()) if not filtered == True else cars,
             'colors' : ['red', 'blue'],
+            'executive_cars' : sorting_cars(ExecutiveCarsInformation.objects.using('executive_cars').all()) if not filtered == True else sorting_cars,
         })
 
 
 def car_info(request):
     if request.method == "POST":
-        car = CarsInformation.objects.get(id=request.POST['car_id'])
+        car = ""
+        executive_car = ""
+        try:
+            car = CarsInformation.objects.get(id=request.POST['car_id'])
+        except Exception as e:
+            try:
+                executive_car = ExecutiveCarsInformation.objects.using('executive_cars').get(id=request.POST['car_id'])
+            except Exception as e:
+                car = CarsInformation.objects.get(id=request.POST['car_id'])
 
         if request.POST['submit'] == "update":
-            car.color = request.POST['car_color']
-            car.save()
+            if not car == "":
+                car.color = request.POST['car_color']
+                car.save()
+
+            elif not executive_car == "":
+                executive_car.color = request.POST['car_color']
+                executive_car.save()
 
         elif request.POST['submit'] == "delete":
-            car.delete()
+            if not car == "":
+                car.delete()
+
+            elif not executive_car == "":
+                executive_car.delete()
 
         return redirect(reverse('details:homepage'))
 

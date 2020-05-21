@@ -1,8 +1,13 @@
 {% load static from static %}
 
-<div class="row bg-success">
-
-    <div id="groupItems1" class="col-lg-6 bg-danger items-list">
+<div class="row">
+    <div class="col-lg-6 my-3">
+        <h4 class="text-center text-danger">Ordinary Cars</h4>
+    </div>
+    <div class="col-lg-6 my-3">
+        <h4 class="text-center text-primary">Executive Cars</h4>
+    </div>
+    <div id="groupItems1" class="col-lg-6 items-list border-right">
         {% if cars %}
             {% static "" as baseUrl %}
             {% for car in cars %}
@@ -20,8 +25,22 @@
         {% endif %}
     </div>
 
-    <div id="groupItems2" class="col-lg-6 bg-primary items-list">
-
+    <div id="groupItems2" class="col-lg-6 items-list">
+        {% if executive_cars %}
+            {% static "" as baseUrl %}
+            {% for car in executive_cars %}
+                <div class="mx-1 my-1 car-images-container d-inline-block">
+                    <div id="{{ car.name }}-{{ car.color }}-executive_cars" class="{{ car.color }}-executive_cars">
+                        <a class="modal-btns" href="#" value="{{ car.name }}-{{ car.color }}id={{ car.id }}" data-toggle="modal" data-target="#update_delete_modal">
+                            <img class="car-images mx-1" name="car" src="{{ baseUrl }}images/{{ car.color }}.png" alt="{{ car.name }}">
+                        </a>
+                        <div class="label"> 
+                            <h4 class="text-dark text-center">{{ car.name }}</h4>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
 
 </div>
