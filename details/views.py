@@ -29,7 +29,6 @@ def homepage(request):
     car_names = sorted([car['name'] for car in car_to_be_sorted])
 
     if request.method == "GET":
-        print(car_names)
         return render(request, 'details/mainpages/homepage.html', {
             'title' : 'homepage',
             'cars' :  cars,
