@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2020 at 08:48 PM
+-- Generation Time: May 21, 2020 at 07:17 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -147,45 +147,9 @@ CREATE TABLE `auth_user_user_permissions` (
 
 CREATE TABLE `cars_information` (
   `id` int(6) NOT NULL,
-  `name` varchar(3) NOT NULL,
+  `name` varchar(20) NOT NULL,
   `color` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `cars_information`
---
-
-INSERT INTO `cars_information` (`id`, `name`, `color`) VALUES
-(2, 'B', 'red'),
-(4, 'D', 'red'),
-(5, 'E', 'red'),
-(6, 'F', 'blue'),
-(7, 'G', 'red'),
-(8, 'H', 'blue'),
-(9, 'I', 'red'),
-(10, 'J', 'blue'),
-(11, 'K', 'blue'),
-(12, 'L', 'red'),
-(13, 'M', 'blue'),
-(14, 'N', 'red'),
-(15, 'O', 'red'),
-(16, 'P', 'red'),
-(18, 'Q', 'blue'),
-(19, 'R', 'red'),
-(20, 'S', 'red'),
-(21, 'T', 'red'),
-(22, 'U', 'red'),
-(24, 'V', 'blue'),
-(25, 'W', 'red'),
-(26, 'C', 'red'),
-(28, 'X', 'blue'),
-(29, 'Y', 'blue'),
-(30, 'Z', 'blue'),
-(31, 'A1', 'blue'),
-(32, 'B1', 'blue'),
-(33, 'C1', 'red'),
-(34, 'D1', 'blue'),
-(35, 'A', 'blue');
 
 -- --------------------------------------------------------
 
@@ -403,7 +367,7 @@ ALTER TABLE `auth_user_user_permissions`
 -- AUTO_INCREMENT for table `cars_information`
 --
 ALTER TABLE `cars_information`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `django_admin_log`
