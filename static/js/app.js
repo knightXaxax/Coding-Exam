@@ -19,3 +19,5 @@ $(document).ready(function(){
         $('#img-focus').attr('src', '/');
     });
 });
+
+

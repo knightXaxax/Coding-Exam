@@ -1,5 +1,5 @@
-{% extends 'details/layouts/layout.html' %}
-{% load static from static %}
+{% extends 'layouts/layout.html' %}
+
 
 {% block title %}
     {{ title | title }}
@@ -9,8 +9,9 @@
 {% block content %}
     <div id="content" class="container-fluid">
         <div class="row">
-            <div class="col-lg-2"></div>
-            <div class="col-lg-8 border-right border-left border-bottom border-muted rounded-lg">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10 border-right border-left border-bottom border-muted rounded-lg">
+
                 <div class="row">
                     <div class="col-lg-12">
                         <div id="header" class="jumbotron bg-dark text-white py-3 my-3 rounded-lg">
@@ -26,64 +27,14 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <hr>
-                <div class="row my-4">
-                    <div class="col-lg-3"></div>
-                    <form action="{% url 'details:homepage' %}" method="POST" class="col-lg-6 row">
-                        {% csrf_token %}
-        
-                        <fieldset class="form-group">
-                            <legend class="text-dark text-center">Add some Cars</legend>
-                        </fieldset>
-        
-                        <fieldset class="form-group col-lg-12">
-                            <div class="row justify-content-center">
-                            <button type="submit" name="submit" value="add-blue-car" id="add-blue-car" class="col-lg-5 col-md-5 col-sm-5 btn btn-outline-primary rounded-pill my-2 shadow-sm"><h5>Add a Blue Car</h5></button>
-                            <button type="submit" name="submit" value="add-red-car" id="add-red-car" class="col-lg-5 col-md-5 col-sm-5 btn btn-outline-danger rounded-pill my-2 shadow-sm"><h5>Add a Red Car</h5></button>
-                            </div>
-                        </fieldset>
-        
-                    </form>
-                </div>
-                <hr>
-                <div class="row my-4">
-                    <div class="col-lg-3"></div>
-                    <div class="col-lg-6">
-                        <form action="" method="POST" class="row">
-                            {% csrf_token %}
-                            <button type="submit" name="submit" id="blue-filter" value="blue-filter" class="col-lg-4 col-md-4 col-sm-4 btn btn-outline-primary rounded-pill my-2">
-                                <h5>Show Blue Cars</h5>
-                            </button>
-                            <button type="submit" name="submit" id="all-filter" value="all-filter" class="col-lg-4 col-md-4 col-sm-4 btn btn-outline-success rounded-pill my-2">
-                                <h5>Show All Cars</h5>
-                            </button>
-                            <button type="submit" name="submit" id="red-filter" value="red-filter" class="col-lg-4 col-md-4 col-sm-4 btn btn-outline-danger rounded-pill my-2">
-                                <h5>Show Red Cars</h5>
-                            </button>
-                        </form>
-                    </div>
-                </div>
+                </div><hr>
+
+                {% include 'details/forms/adding_form.html' %}<hr>
                 
-                <div class="row">
-                    <div id="sortable" class="col-lg-12 col-md-12 rounded-sm py-2 px-2 row  justify-content-center">
-                        {% if cars %}
-                            {% static "" as baseUrl %}
-                            {% for car in cars %}
-                                <div class="mx-1 my-1 d-inline-block car-images-container">
-                                    <div class="{{ car.color }}-cars">
-                                        <a class="modal-btns" href="#" value="{{ car.name }}-{{ car.color }}id={{ car.id }}" data-toggle="modal" data-target="#update_delete_modal">
-                                            <img class="car-images mx-1" name="car" src="{{ baseUrl }}images/{{ car.color }}.png" alt="{{ car.name }}">
-                                        </a>
-                                        <div class="label"> 
-                                            <h4 class="text-dark text-center">{{ car.name }}</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-                    </div>
-                </div>
+                {% include 'details/forms/filtering_form.html' %}
+                
+                {% include 'details/mainpages/cars_content.html' %}
+                
             </div>
         </div>
         

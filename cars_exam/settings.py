@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'details',
+    'executive_cars',
 ]
 
 MIDDLEWARE = [
@@ -66,6 +67,15 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cars',
+        'USER': 'root',
+        'PASSWD': '',
+        'OPTIONS' : {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        }
+    },
+    'executive_cars': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'executive_cars',
         'USER': 'root',
         'PASSWD': '',
         'OPTIONS' : {

@@ -1,0 +1,58 @@
+{% load static from static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Cars | {% block title %}{% endblock title %}</title>
+</head>
+<body>
+    {% include 'layouts/navbar.html' %}
+    <div class="container-fluid">
+        <div id="main-content" class="row">
+            <div class="col-lg-12">
+                {% block content %}
+
+                {% endblock content %}
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'vendor/jquery/jquery-3.4.1.js' %}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    <script>
+        $(function(){
+            $("#groupItems1, #groupItems2").sortable({
+                connectWith: ".items-list",
+            }).disableSelection();
+        
+            $('#groupItems1').sortable({
+            });
+        
+            $('#groupItems2').sortable({
+                receive: function(ev, ui) {
+                    $.ajax({                        
+                        url: "{% url 'executive_cars:update_car_location' %}",
+                        method: "POST",
+                        headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                        data: {
+                            data: ui.item[0].children[0].id,
+                        },
+                        })
+                        .done(function(response) {
+                            console.log(response);
+                        })
+                        .fail(function (error) {
+                            console.log(error);
+                        }
+                    );
+                },
+            });
+        });
+    </script>
+</body>
+</html>

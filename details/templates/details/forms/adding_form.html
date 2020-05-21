@@ -1,0 +1,18 @@
+<div class="row my-4">
+    <div class="col-lg-3"></div>
+    <form action="{% url 'details:homepage' %}" method="POST" class="col-lg-6 row">
+        {% csrf_token %}
+
+        <fieldset class="form-group">
+            <legend class="text-dark text-center">Add some Cars</legend>
+        </fieldset>
+
+        <fieldset class="form-group col-lg-12">
+            <div class="row justify-content-center">
+            <button type="submit" name="submit" value="add-blue-car" id="add-blue-car" class="col-lg-5 col-md-5 col-sm-5 btn btn-outline-primary rounded-pill my-2 shadow-sm"><h5>Add a Blue Car</h5></button>
+            <button type="submit" name="submit" value="add-red-car" id="add-red-car" class="col-lg-5 col-md-5 col-sm-5 btn btn-outline-danger rounded-pill my-2 shadow-sm"><h5>Add a Red Car</h5></button>
+            </div>
+        </fieldset>
+
+    </form>
+</div>

@@ -4,6 +4,7 @@ from .models import CarsInformation
 from operator import itemgetter
 from .forms import EditForm
 from django.urls import reverse
+import threading
 
 
 alpha_origin = [
@@ -23,6 +24,7 @@ def homepage(request):
             'title' : 'homepage',
             'cars' :  cars,
             'colors' : ['red', 'blue'],
+            'data' : 'asd',
         })
     
     elif request.method == "POST":
