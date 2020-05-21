@@ -100,3 +100,22 @@ def thousand_name_generator(car, car_names):
         if not str(letter) in car_names:
             car['name'] = letter
             break
+
+
+def add_to_ordinary_cars(request):
+    if request.method == "POST":
+        if request.POST['data']:
+            data = request.POST['data'].split("-")
+            new_ordinary_car = CarsInformation(name=data[0], color=data[1])
+            new_ordinary_car.save()
+
+            return JsonResponse({'msg' : 'okay'}, safe=True)
+
+
+def remove_from_ordinary_cars(request):
+    if request.method == "POST":
+        if request.POST['data']:
+            data = request.POST['data'].split("-")
+            existing_ordinary_car = CarsInformation.objects.get(name=data[0])
+            existing_ordinary_car.delete()
+            return JsonResponse({'msg' : 'okay'}, safe=True)

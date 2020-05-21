@@ -31,12 +31,26 @@
             }).disableSelection();
         
             $('#groupItems1').sortable({
-            });
-        
-            $('#groupItems2').sortable({
                 receive: function(ev, ui) {
                     $.ajax({                        
-                        url: "{% url 'executive_cars:update_car_location' %}",
+                        url: "{% url 'details:add_to_ordinary_cars' %}",
+                        method: "POST",
+                        headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                        data: {
+                            data: ui.item[0].children[0].id,
+                        },
+                        })
+                        .done(function(response) {
+                            console.log(response);
+                        })
+                        .fail(function (error) {
+                            console.log(error);
+                        }
+                    );
+
+                    
+                    $.ajax({                        
+                        url: "{% url 'executive_cars:remove_from_executive_cars' %}",
                         method: "POST",
                         headers: {'X-CSRFToken': '{{ csrf_token }}'},
                         data: {
@@ -52,6 +66,43 @@
                     );
                 },
             });
+        
+            $('#groupItems2').sortable({
+                receive: function(ev, ui) {
+                    $.ajax({                        
+                        url: "{% url 'executive_cars:add_to_executive_cars' %}",
+                        method: "POST",
+                        headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                        data: {
+                            data: ui.item[0].children[0].id,
+                        },
+                        })
+                        .done(function(response) {
+                            console.log(response);
+                        })
+                        .fail(function (error) {
+                            console.log(error);
+                        }
+                    );
+                    
+                    $.ajax({                        
+                        url: "{% url 'details:remove_from_ordinary_cars' %}",
+                        method: "POST",
+                        headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                        data: {
+                            data: ui.item[0].children[0].id,
+                        },
+                        })
+                        .done(function(response) {
+                            console.log(response);
+                        })
+                        .fail(function (error) {
+                            console.log(error);
+                        }
+                    );
+                },
+            });
+            
         });
     </script>
 </body>
